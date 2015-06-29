@@ -120,18 +120,12 @@ describe('For a given promiseA (pA)', function(){
       var promiseB = promiseA.then(function(){
         return promiseZ;
       });
-      deferralA.resolve();
-      console.log('ZZZZZ', promiseZ);
-      
+      deferralA.resolve();      
       deferralZ.resolve( 'testing' );
-      console.log('ZZZZZ', promiseZ);
-
-      console.log('BBBBBB', promiseB);
-
       expect( promiseB.value ).toBe( 'testing' );
     });
 
-    xit("if pA's error handler returns promiseZ, pB mimics pZ", function(){
+    it("if pA's error handler returns promiseZ, pB mimics pZ", function(){
       var deferralZ = defer();
       var promiseZ = deferralZ.$promise;
       var promiseB = promiseA.catch(function(){
@@ -148,7 +142,7 @@ describe('For a given promiseA (pA)', function(){
   });
 
   // Another demonstration. This should work if the previous specs passed.
-  xit('.then can be chained many times', function(){
+  it('.then can be chained many times', function(){
     var add1 = function (num) { return ++num; };
     var test = 0;
     promiseA.then( add1 ).then( add1 ).then().then( function (data) {

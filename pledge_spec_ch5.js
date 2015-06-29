@@ -35,19 +35,19 @@ describe("A promise's .then method", function(){
   function updateCb (info) { /* act on info */ }
   function u2 (i) { /* act on i */ }
 
-  xit('adds update handlers to the promise', function(){
+  it('adds update handlers to the promise', function(){
     promise.then( null, null, updateCb );
     expect( promise.updateCbs[0] ).toBe( updateCb );
   });
 
-  xit('can be called multiple times to add more handlers', function(){
+  it('can be called multiple times to add more handlers', function(){
     promise.then( null, null, updateCb );
     expect( promise.updateCbs[0] ).toBe( updateCb );
     promise.then( null, null, u2 );
     expect( promise.updateCbs[1] ).toBe( u2 );
   });
 
-  xit("won't bother to attach an update callback if the handler is not a function", function() {
+  it("won't bother to attach an update callback if the handler is not a function", function() {
     promise.then( null, null, 'something' );
     promise.then( null, null, {} );
     promise.then( null, null, false );
@@ -70,27 +70,27 @@ describe("A deferral's .notify method", function(){
     spyOn( fn, 'setLoadingBar' ).and.callThrough();
   });
 
-  xit("calls a promise's update handler attached via .then", function(){
+  it("calls a promise's update handler attached via .then", function(){
     promiseForDownload.then(null, null, fn.setLoadingBar);
     expect( fn.setLoadingBar ).not.toHaveBeenCalled();
     downloadDeferral.notify();
     expect( fn.setLoadingBar ).toHaveBeenCalled();
   });
 
-  xit('calls an update handler with some information', function(){
+  it('calls an update handler with some information', function(){
     promiseForDownload.then(null, null, fn.setLoadingBar);
     expect( fn.setLoadingBar ).not.toHaveBeenCalled();
     downloadDeferral.notify( 17 );
     expect( fn.setLoadingBar ).toHaveBeenCalledWith( 17 );
   });
 
-  xit("never affects the promise's value", function(){
+  it("never affects the promise's value", function(){
     promiseForDownload.then( fn.setLoadingBar );
     downloadDeferral.notify( 50 );
     expect( promiseForDownload.value ).toBe( undefined );
   });
 
-  xit('calls all attached update handlers once per attachment', function(){
+  it('calls all attached update handlers once per attachment', function(){
     promiseForDownload.then(null, null, fn.setLoadingBar);
     promiseForDownload.then(null, null, fn.setLoadingBar);
     expect( fn.setLoadingBar ).not.toHaveBeenCalled();
@@ -98,7 +98,7 @@ describe("A deferral's .notify method", function(){
     expect( fn.setLoadingBar.calls.count() ).toBe( 2 );
   });
 
-  xit('only works while the promise is pending', function(){
+  it('only works while the promise is pending', function(){
     promiseForDownload.then(null, null, fn.setLoadingBar);
     downloadDeferral.notify( 50 );
     expect( fn.setLoadingBar ).toHaveBeenCalledWith( 50 );
@@ -108,7 +108,7 @@ describe("A deferral's .notify method", function(){
     expect( fn.setLoadingBar.calls.count() ).toBe( 1 );
   });
 
-  xit('can be called multiple times before resolution/rejection', function(){
+  it('can be called multiple times before resolution/rejection', function(){
     promiseForDownload.then(null, null, fn.setLoadingBar);
     downloadDeferral.notify( 12 );
     expect( fn.setLoadingBar.calls.count() ).toBe( 1 );

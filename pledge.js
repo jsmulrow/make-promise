@@ -97,6 +97,7 @@ $Promise.prototype.callHandlers = function() {
 				// assimilate if the function returned a promise
 				if (result instanceof $Promise) {
 					// add the handler group promise (returned by .then) to the result promises handler groups
+					//   (this allows for connection b/w result promise and the promise set equal to .then's return value)
 					result.handlerGroups.unshift({
 						successCb: null,
 						errorCb: null,

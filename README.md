@@ -61,3 +61,4 @@ These and other technical details are important, but for someone just beginning 
 * [Promise Nuggets](http://spion.github.io/promise-nuggets/) (use patterns)
 * [Promise Anti-Patterns](http://taoofcode.net/promise-anti-patterns/)
 * [AngularJS / UI Router / Resolve](http://www.jvandemo.com/how-to-resolve-angularjs-resources-with-ui-router/)
+# make-promise

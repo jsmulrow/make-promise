@@ -36,7 +36,7 @@ describe('Another promise', function(){
 
   describe('that is not yet rejected', function(){
 
-    xit('does not call error handlers yet', function(){
+    it('does not call error handlers yet', function(){
       promiseForThing.then( null, fn.logOops );
       expect( fn.logOops ).not.toHaveBeenCalled();
     });
@@ -56,22 +56,22 @@ describe('Another promise', function(){
     // those `handlerGroups`? There is going to have to be some
     // sort of "safety check" somewhere…
 
-    xit('does not call any success handlers', function(){
+    it('does not call any success handlers', function(){
       promiseForThing.then( fn.logOops );
       expect( fn.logOops ).not.toHaveBeenCalled();
     });
 
-    xit('calls an error handler added by .then', function(){
+    it('calls an error handler added by .then', function(){
       promiseForThing.then( null, fn.logOops );
       expect( fn.logOops ).toHaveBeenCalled();
     });
 
-    xit("calls an error handler by passing in the promise's value", function(){
+    it("calls an error handler by passing in the promise's value", function(){
       promiseForThing.then( null, fn.logInput );
       expect( fn.logInput ).toHaveBeenCalledWith( theReason );
     });
 
-    xit('calls each error handler once per attachment', function(){
+    it('calls each error handler once per attachment', function(){
       promiseForThing.then( null, fn.logOops );
       promiseForThing.then( null, fn.logInput );
       promiseForThing.then( null, fn.logInput );
@@ -80,7 +80,7 @@ describe('Another promise', function(){
       expect( fn.logInput ).toHaveBeenCalledWith( theReason );
     });
 
-    xit('calls each error handler in the order added', function(){
+    it('calls each error handler in the order added', function(){
       promiseForThing.then( null, fn.logOops );
       promiseForThing.then( null, fn.logInput );
       expect( log ).toEqual( [{ code: 'oops'}, {code: 'timed out'}] );
@@ -92,13 +92,13 @@ describe('Another promise', function(){
 
     var theReason = { code: 'unauthorized' };
 
-    xit('calls that handler when rejected', function(){
+    it('calls that handler when rejected', function(){
       promiseForThing.then( null, fn.logInput );
       thingDeferral.reject( theReason );
       expect( fn.logInput ).toHaveBeenCalledWith( theReason );
     });
 
-    xit('calls all its error handlers in order one time when rejected', function(){
+    it('calls all its error handlers in order one time when rejected', function(){
       promiseForThing.then( null, fn.logInput );
       promiseForThing.then( null, fn.logOops );
       thingDeferral.reject( theReason );
@@ -128,18 +128,18 @@ describe('Another promise', function(){
     });
 
     // Demonstration — the next two specs should pass already
-    xit('can do stuff with resolved data', function(){
+    it('can do stuff with resolved data', function(){
       thingDeferral.resolve({ animal: 'duckling' });
       expect( ui.animals[2] ).toBe( 'duckling' );
     });
 
-    xit('can deal with rejection reasons', function(){
+    it('can deal with rejection reasons', function(){
       thingDeferral.reject({ message: 'unauthorized' });
       expect( ui.warning ).toBe( 'unauthorized' );
     });
 
     // Optional but recommended garbage collection
-    xit('discards handlers that are no longer needed', function(){
+    it('discards handlers that are no longer needed', function(){
       thingDeferral.resolve({ animal: 'chipmunk' });
       expect( promiseForThing.handlerGroups ).toEqual( [] );
     });
@@ -161,7 +161,7 @@ describe("A promise's .catch(errorFn) method", function(){
   });
   function myFunc (reason) { console.log(reason); }
 
-  xit('attaches errorFn as an error handler', function(){
+  it('attaches errorFn as an error handler', function(){
     promise.catch( myFunc );
     expect( promise.then ).toHaveBeenCalledWith( null, myFunc );
   });
@@ -170,7 +170,7 @@ describe("A promise's .catch(errorFn) method", function(){
   by default all functions return undefined. However, as you start
   Ch. 4, this may fail. If that happens, you will have to return here
   and fix .catch — this time, taking the Ch. 4 specs into account. */
-  xit('returns the same kind of thing that .then would', function(){
+  it('returns the same kind of thing that .then would', function(){
     var return1 = promise.catch( myFunc );
     var return2 = promise.then( null, myFunc );
     expect( return1 ).toEqual( return2 );

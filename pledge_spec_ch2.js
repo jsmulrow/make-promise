@@ -32,13 +32,13 @@ describe("A promise's .then method", function(){
   function s2 (d) { /* use d */ }
   function e2 (r) { /* handle r */ }
 
-  xit('adds groups of handlers (callback functions) to the promise', function(){
+  it('adds groups of handlers (callback functions) to the promise', function(){
     promise.then( successCb, errorCb );
     expect( promise.handlerGroups[0].successCb ).toBe( successCb );
     expect( promise.handlerGroups[0].errorCb   ).toBe( errorCb );
   });
 
-  xit('can be called multiple times to add more handlers', function(){
+  it('can be called multiple times to add more handlers', function(){
     promise.then( successCb, errorCb );
     expect( promise.handlerGroups[0].successCb ).toBe( successCb );
     expect( promise.handlerGroups[0].errorCb   ).toBe( errorCb );
@@ -47,7 +47,7 @@ describe("A promise's .then method", function(){
     expect( promise.handlerGroups[1].errorCb   ).toBe( e2 );
   });
 
-  xit('attaches a falsy value in place of non-function success or error callbacks', function(){
+  it('attaches a falsy value in place of non-function success or error callbacks', function(){
     promise.then( 'a string', {} );
     expect( promise.handlerGroups[0].successCb ).toBeFalsy();
     expect( promise.handlerGroups[0].errorCb   ).toBeFalsy();
@@ -73,7 +73,7 @@ describe('A promise', function(){
 
   describe('that is not yet resolved', function(){
 
-    xit('does not call any success handlers yet', function(){
+    it('does not call any success handlers yet', function(){
       promiseForNum.then( fn.setFoo10 );
       expect( fn.setFoo10 ).not.toHaveBeenCalled();
     });
@@ -88,17 +88,17 @@ describe('A promise', function(){
 
     // Recommended: add a .callHandlers method to your promise prototype.
 
-    xit('calls a success handler added by .then', function(){
+    it('calls a success handler added by .then', function(){
       promiseForNum.then( fn.setFoo10 );
       expect( fn.setFoo10 ).toHaveBeenCalled();
     });
 
-    xit("calls a success handler by passing in the promise's value", function(){
+    it("calls a success handler by passing in the promise's value", function(){
       promiseForNum.then( fn.addToFoo );
       expect( fn.addToFoo ).toHaveBeenCalledWith( 25 );
     });
 
-    xit('calls each success handler once per attachment', function(){
+    it('calls each success handler once per attachment', function(){
       promiseForNum.then( fn.setFoo10 );
       promiseForNum.then( fn.addToFoo );
       promiseForNum.then( fn.addToFoo );
@@ -107,7 +107,7 @@ describe('A promise', function(){
       expect( fn.addToFoo ).toHaveBeenCalledWith( 25 );
     });
 
-    xit('calls each success handler when added', function(){
+    it('calls each success handler when added', function(){
       promiseForNum.then( fn.setFoo10 );
       expect( foo ).toBe( 10 );
       promiseForNum.then( fn.addToFoo );
@@ -120,13 +120,13 @@ describe('A promise', function(){
   // But what if events occur in opposite order?
   describe('that already has a success handler', function(){
 
-    xit('calls that handler when resolved', function(){
+    it('calls that handler when resolved', function(){
       promiseForNum.then( fn.setFoo10 );
       numDeferral.resolve();
       expect( fn.setFoo10 ).toHaveBeenCalled();
     });
 
-    xit('calls all its success handlers in order one time when resolved', function(){
+    it('calls all its success handlers in order one time when resolved', function(){
       promiseForNum.then( fn.setFoo10 );
       promiseForNum.then( fn.addToFoo );
       numDeferral.resolve( 25 );
